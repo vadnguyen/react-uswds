@@ -3,9 +3,9 @@
 //  • id: sets the id property for the input and the <label for... attribute
 //
 // Uses these props:
-//  • required: true or false, Adds required label, required attribute and aria-required='true'
-//  • spellCheck: true or false, defaults to false, if true enables borwser autocorrection while typing
-//
+//  • required: true or false, defaults to false. Adds required label, required attribute and aria-required='true'
+//  • spellCheck: true or false, defaults to false. If true enables borwser autocorrection while typing
+//  • errorMessage: string. If present triggers the error state and displays the error message
 
 
 import React, { Component } from 'react';
@@ -21,8 +21,20 @@ export default class TextInput extends Component {
     };
   }
 
+  componentWillMount() {
+    if (this.props.errorMessage) {
+      this.setState({
+        isPristine: true,
+        isValid: false,
+        hasError: true,
+        errorMessageBody: this.props.errorMessage
+      })
+    }
+  }
+
 
   render() {
+
     let errorMessage;
 
     if (this.state.hasError) {
@@ -117,9 +129,11 @@ TextInput.propTypes = {
   id: React.PropTypes.string.isRequired,
   label: React.PropTypes.string.isRequired,
   required: React.PropTypes.bool,
-  spellCheck: React.PropTypes.bool
+  spellCheck: React.PropTypes.bool,
+  errorMessage: React.PropTypes.string
 };
 
 TextInput.defaultProps = {
-  spellCheck: false
+  spellCheck: false,
+  required: false
 };
