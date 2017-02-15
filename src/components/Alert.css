@@ -1,0 +1,7 @@
+.usa-alert-text p:first-child {
+  margin-top: 0;
+}
+
+.usa-alert-text p:last-child {
+  margin-bottom: 0;
+}
