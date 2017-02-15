@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Alert from './Alert'
 import TextInput from './TextInput'
+import TextArea from './TextArea'
 
 class App extends Component {
   render() {
@@ -53,6 +54,26 @@ class App extends Component {
           id="lastName"
           required={true}
         />
+
+        <TextInput
+          label="Social Security Number (SSN)"
+          id="ssn"
+          errorMessage="This is not a valid SSN"
+        />
+
+        <TextArea
+          label="How did you hear about us?"
+          id="howHeard"
+          required={true}
+        />
+
+        <TextArea
+          label="Tell me about yourself"
+          id="aboutYou"
+          errorMessage="This is too boring. Spice it up!"
+        />
+
+
       </div>
     );
   }
