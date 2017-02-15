@@ -51,7 +51,7 @@ class App extends Component {
         <TextInput
           label="Last name"
           id="lastName"
-          validation={[{regex: /e/, message:'Must contain a lowercase e'}]}
+          required={true}
         />
       </div>
     );
