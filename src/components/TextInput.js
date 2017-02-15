@@ -1,8 +1,12 @@
 // Requires these props:
-//  • id
-//  • label
+//  • label: Sets the text for the input's label
+//  • id: sets the id property for the input and the <label for... attribute
 //
-// If required is true, adds required attribute and aria-required='true'
+// Uses these props:
+//  • required: true or false, Adds required label, required attribute and aria-required='true'
+//  • spellCheck: true or false, defaults to false, if true enables borwser autocorrection while typing
+//
+
 
 import React, { Component } from 'react';
 
@@ -108,3 +112,14 @@ export default class TextInput extends Component {
     }
   }
 }
+
+TextInput.propTypes = {
+  id: React.PropTypes.string.isRequired,
+  label: React.PropTypes.string.isRequired,
+  required: React.PropTypes.bool,
+  spellCheck: React.PropTypes.bool
+};
+
+TextInput.defaultProps = {
+  spellCheck: false
+};
