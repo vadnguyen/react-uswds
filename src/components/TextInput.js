@@ -69,6 +69,24 @@ export default class TextInput extends Component {
     );
   }
 
+  _validateSSN() {
+    //validates a SSN field - parses out '-' and veriries number length === 9
+    let ssnNum = this._input.value,
+        regexNumDashes = new RegExp("^\\d{3}-\\d{2}-\\d{4}$"),
+        regexNum = new RegExp("^\\d{9}$");
+
+
+    if ( this.props.id === 'ssn' ) {
+      if ( !(regexNum.test(ssnNum)) && !(regexNumDashes.test(ssnNum)) ){
+        this.setState({
+          hasError: true,
+          isValid: false,
+          errorMessageBody: 'The SSN field requires 9 digits.'
+        });
+
+      } 
+    }
+  }
 
   _validate() {
     // First check to see if field is required and empty
@@ -112,6 +130,7 @@ export default class TextInput extends Component {
     if ((this.props.required || this.props.validation) && !this.state.isPristine) {
       this._validate();
     }
+    this._validateSSN();
   }
 
   _handleChange() {
@@ -130,7 +149,8 @@ TextInput.propTypes = {
   label: React.PropTypes.string.isRequired,
   required: React.PropTypes.bool,
   spellCheck: React.PropTypes.bool,
-  errorMessage: React.PropTypes.string
+  errorMessage: React.PropTypes.string,
+  maxLength: React.PropTypes.number
 };
 
 TextInput.defaultProps = {
