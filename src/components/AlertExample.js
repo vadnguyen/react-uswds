@@ -15,31 +15,32 @@ export default class AlertExample extends Component {
 
     return (
       <div>
-      <h3>Alert UI Components</h3>
-        <Alert
-          type="success"
-          title="Success Status"
-          body={message}
-        />
-        <Alert
-          type="warning"
-          title="Warning Status"
-          body={message}
-        />
-        <Alert
-          type="error"
-          title="Error Status"
-          body={message}
-        />
-        <Alert
-          type="info"
-          title="Information Status"
-          body={message}
-        />
-        <Alert
-          title="No type provided"
-          body={longMessage}
-        />
+        <h3>Alert UI Components</h3>
+        <hr />
+          <Alert
+            type="success"
+            title="Success Status"
+            body={message}
+          />
+          <Alert
+            type="warning"
+            title="Warning Status"
+            body={message}
+          />
+          <Alert
+            type="error"
+            title="Error Status"
+            body={message}
+          />
+          <Alert
+            type="info"
+            title="Information Status"
+            body={message}
+          />
+          <Alert
+            title="No type provided"
+            body={longMessage}
+          />
       </div>
     );
   }

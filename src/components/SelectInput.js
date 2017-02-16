@@ -2,12 +2,16 @@
 //  • label: Sets the text for the input's label
 //  • id: sets the id property for the input and the <label for... attribute
 //
+// Uses these props:
+//  • required: true or false, defaults to false. Adds required label, required attribute and aria-required='true'
+//  • spellCheck: true or false, defaults to false. If true enables borwser autocorrection while typing
+//  • errorMessage: string. If present triggers the error state and displays the error message
 
 
 import React, { Component } from 'react'
 import './Form.css'
 
-export default class TextArea extends Component {
+export default class SelectInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,9 +33,20 @@ export default class TextArea extends Component {
     }
   }
 
-
   render() {
-    let errorMessage;
+
+    let errorMessage,
+        options,
+        self = this;
+
+    //builds the option list from array passed in by prop "options"
+    options = self.props.options.map(function(option){
+      return (
+          <option key={option} value={option}>
+              {option}
+          </option>
+      )
+    });
 
     if (this.state.hasError) {
       errorMessage = (
@@ -49,77 +64,66 @@ export default class TextArea extends Component {
 
         {errorMessage}
 
-        <textarea
+        <select
           id={this.props.id}
           name={this.props.id}
+          className={this.state.isValid ? 'usa-input-success' : null}
           required={this.props.required}
           aria-required={this.props.required}
-          onBlur={this._handleBlur.bind(this)}
-          onChange={this._handleChange.bind(this)}
-          ref={(input) => this._input = input}
-        ></textarea>
+          ref={(select) => this._select = select}
+          onChange={this._handleChange.bind(this)}>
+            {options}
+        </select>
       </div>
     );
   }
 
+  _handleChange(selectedOpt) {
 
+
+    if (this.props.onChange) {
+          let change = {
+            oldValue: this.state.selected,
+            newValue: selectedOpt.target.value
+          }
+          this.props.onChange(change);
+      }
+      this.setState({selected: selectedOpt.target.value});
+
+      this._validate();
+  }
+  
   _validate() {
     // First check to see if field is required and empty
-    if (this.props.required && !this._input.value) {
+    if (this.props.required && this._select.value.length < 1) {
       this.setState({
         hasError: true,
         isValid: false,
         errorMessageBody: 'This field is required'
       });
-    }
-    // If validator(s) were sent as a prop, test them first
-    else if (this.props.validation) {
-      for (let i = 0; i < this.props.validation.length; i += 1) {
-        if (!this.props.validation[i].regex.test(this._input.value)) {
-          this.setState({
-            hasError: true,
-            isValid: false,
-            errorMessageBody: this.props.validation[i].message
-          });
-          break;
-        } else {
-          this.setState({
-            hasError: false,
-            isValid: true
-          });
-        }
-      }
-    }
-    // Field must not have an error
-    else {
+    } else {
       this.setState({
         hasError: false,
-        // isValid: true,
-        errorMessageBody: null
+        isValid: true,
       });
     }
   }
 
-
-  _handleBlur() {
-    if ((this.props.required || this.props.validation) && !this.state.isPristine) {
-      this._validate();
-    }
-  }
-
-  _handleChange() {
-    if (this._input.value) {
-      this.setState({isPristine: false});
-    }
-
-    if (this.state.hasError) {
-      this._validate();
-    }
-  }
 }
 
-TextArea.propTypes = {
+SelectInput.propTypes = {
   id: React.PropTypes.string.isRequired,
   label: React.PropTypes.string.isRequired,
   required: React.PropTypes.bool,
+  errorMessage: React.PropTypes.string,
+  options: React.PropTypes.array.isRequired,
+  value: React.PropTypes.oneOfType([
+    React.PropTypes.number,
+    React.PropTypes.string
+    ])
+};
+
+SelectInput.defaultProps = {
+  required: false,
+  value: null,
 };

@@ -8,7 +8,8 @@
 //  • errorMessage: string. If present triggers the error state and displays the error message
 
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import './Alert.css';
 
 export default class TextInput extends Component {
   constructor(props) {
