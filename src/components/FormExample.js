@@ -77,6 +77,9 @@ export default class FormExample extends Component {
                 errorMessage="This is too boring. Spice it up!"
               />
           </fieldset>
+          <fieldset>
+          <legend>Sign In</legend>
+          </fieldset>          
         </form>
       </div>
     );

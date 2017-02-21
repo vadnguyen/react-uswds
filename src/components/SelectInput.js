@@ -4,8 +4,10 @@
 //
 // Uses these props:
 //  • required: true or false, defaults to false. Adds required label, required attribute and aria-required='true'
-//  • spellCheck: true or false, defaults to false. If true enables borwser autocorrection while typing
 //  • errorMessage: string. If present triggers the error state and displays the error message
+//  • options: array of key values, adds the <options></options>
+//  • value: sets the selected value of dropdown
+
 
 
 import React, { Component } from 'react'

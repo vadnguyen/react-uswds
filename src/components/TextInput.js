@@ -57,7 +57,7 @@ export default class TextInput extends Component {
         <input
           id={this.props.id}
           name={this.props.id}
-          type="text"
+          type={this.props.type}
           className={this.state.isValid ? 'usa-input-success' : null}
           required={this.props.required}
           aria-required={this.props.required}
@@ -148,6 +148,7 @@ export default class TextInput extends Component {
 TextInput.propTypes = {
   id: React.PropTypes.string.isRequired,
   label: React.PropTypes.string.isRequired,
+  type: React.PropTypes.string,
   required: React.PropTypes.bool,
   spellCheck: React.PropTypes.bool,
   errorMessage: React.PropTypes.string,
@@ -156,5 +157,6 @@ TextInput.propTypes = {
 
 TextInput.defaultProps = {
   spellCheck: false,
-  required: false
+  required: false,
+  type: 'text'
 };

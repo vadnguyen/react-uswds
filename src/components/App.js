@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import AlertExample from './AlertExample'
 import FormExample from './FormExample'
+import SignInForm from './SignInForm'
 
 class App extends Component {
   render() {
@@ -9,6 +10,7 @@ class App extends Component {
         <h1>UI Components</h1>
         <AlertExample />
         <FormExample />
+        <SignInForm />
       </div>
     );
   }
