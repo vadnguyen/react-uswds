@@ -7,20 +7,22 @@ export default class SignInForm extends Component {
 
     return (
       <div>
-      or create an account
-      
-      <TextInput
-        label="Username or email address"
-        id="username"
-        required={true}
-      />
-      <TextInput
-        label="Password"
-        id="password"
-        required={true}
-        type="password"
-      />    
-
+        or create an account
+        
+        <TextInput
+          label="Username or email address"
+          id="username"
+          required={true}
+        />
+        <TextInput
+          label="Password"
+          id="password"
+          required={true}
+          type="password"
+          toggleLabel="Show password"
+          toggleURL="javascript:void(0);"
+          signInBtn="Log Me In Now!!"
+        />
       </div>
       );
   }

@@ -18,7 +18,9 @@ export default class TextInput extends Component {
       isPristine: true,
       isValid: false,
       hasError: false,
-      errorMessageBody : null
+      errorMessageBody : null,
+      typeName: this.props.type,
+      toggleLableState: this.props.toggleLabel
     };
   }
 
@@ -36,7 +38,20 @@ export default class TextInput extends Component {
 
   render() {
 
-    let errorMessage;
+    let errorMessage,
+        signInButton,
+        toggleButton = (
+          <p className="usa-form-note">
+            <a title={this.state.toggleLableState} 
+                href={this.props.toggleURL}
+                className="usa-show_password"
+                aria-controls="password"
+                onClick={this._handleClick.bind(this)}
+                >
+              {this.state.toggleLableState}</a>
+          </p> 
+          );
+
 
     if (this.state.hasError) {
       errorMessage = (
@@ -44,6 +59,12 @@ export default class TextInput extends Component {
       );
     } else {
       errorMessage = null;
+    }
+
+    if (this.props.type === 'password') {
+      signInButton = (
+          <input type="submit" value={this.props.signInBtn} />
+        )
     }
 
     return (
@@ -57,7 +78,7 @@ export default class TextInput extends Component {
         <input
           id={this.props.id}
           name={this.props.id}
-          type={this.props.type}
+          type={this.state.typeName}
           className={this.state.isValid ? 'usa-input-success' : null}
           required={this.props.required}
           aria-required={this.props.required}
@@ -66,8 +87,39 @@ export default class TextInput extends Component {
           ref={(input) => this._input = input}
           spellCheck={this.props.spellCheck ? true : false}
         />
+        {toggleButton}
+        {signInButton}
       </div>
     );
+  }
+
+// State toggle to show/hide the password input value
+  _handleClick() {
+    if (this.state.typeName === 'password' && this.state.isPristine) {
+      this.setState({
+        typeName: 'text',
+        toggleLableState: 'Hide',
+        isPristine: false
+      });
+    } else if (this.state.typeName === 'text' && this.state.isPristine) {
+      this.setState({
+        typeName: 'password',
+        toggleLableState: 'Show password',
+        isPristine: false
+      });
+    } else if (this.state.typeName === 'password' && !this.state.isPristine) {
+      this.setState({
+        typeName: 'text',
+        toggleLableState: 'Hide',
+        isPristine: false
+      });
+    } else {
+      this.setState({
+        typeName: 'password',
+        toggleLableState: 'Show password',
+      });
+    }
+
   }
 
   _validateSSN() {
@@ -152,7 +204,9 @@ TextInput.propTypes = {
   required: React.PropTypes.bool,
   spellCheck: React.PropTypes.bool,
   errorMessage: React.PropTypes.string,
-  maxLength: React.PropTypes.number
+  maxLength: React.PropTypes.number,
+  toggleLabel: React.PropTypes.string,
+  toggleURL: React.PropTypes.string
 };
 
 TextInput.defaultProps = {
