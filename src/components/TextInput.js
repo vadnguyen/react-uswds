@@ -98,25 +98,25 @@ export default class TextInput extends Component {
     if (this.state.typeName === 'password' && this.state.isPristine) {
       this.setState({
         typeName: 'text',
-        toggleLableState: 'Hide',
+        toggleLableState: 'Hide ' + this.props.type,
         isPristine: false
       });
     } else if (this.state.typeName === 'text' && this.state.isPristine) {
       this.setState({
         typeName: 'password',
-        toggleLableState: 'Show password',
+        toggleLableState: this.props.toggleLabel,
         isPristine: false
       });
     } else if (this.state.typeName === 'password' && !this.state.isPristine) {
       this.setState({
         typeName: 'text',
-        toggleLableState: 'Hide',
+        toggleLableState: 'Hide ' + this.props.type,
         isPristine: false
       });
     } else {
       this.setState({
         typeName: 'password',
-        toggleLableState: 'Show password',
+        toggleLableState: this.props.toggleLabel,
       });
     }
 
