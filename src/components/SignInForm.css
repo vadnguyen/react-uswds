@@ -1,0 +1,5 @@
+a.usa-link-disabled {
+    pointer-events: none;
+    color: #515151;
+    text-decoration: none;
+}

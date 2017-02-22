@@ -20,7 +20,7 @@ export default class TextInput extends Component {
       hasError: false,
       errorMessageBody : null,
       typeName: this.props.type,
-      toggleLableState: this.props.toggleLabel
+      toggleLabelState: this.props.toggleLabel
     };
   }
 
@@ -40,14 +40,14 @@ export default class TextInput extends Component {
     let errorMessage,
         signInButton,
         toggleButton = (
-          <p className={'usa-form-note'}>
-            <a title={this.state.toggleLableState} 
+          <p className="usa-form-note">
+            <a title={this.state.toggleLabelState} 
                 href={this.props.toggleURL}
-                className="usa-show_password"
+                className={this.state.isPristine ? 'usa-link-disabled usa-show_password' : 'usa-show_password'}
                 aria-controls="password"
                 onClick={this._handleClick.bind(this)}
                 >
-              {this.state.toggleLableState}</a>
+              {this.state.toggleLabelState}</a>
           </p> 
           );
 
@@ -62,7 +62,12 @@ export default class TextInput extends Component {
 
     if (this.props.type === 'password') {
       signInButton = (
-          <input type="submit" value={this.props.signInBtn} />
+          <input 
+          type="submit" 
+          value={this.props.signInBtn} 
+          className={this.state.isPristine ? 'usa-button-disabled' : null}
+          disabled={this.state.isPristine ? true : false}
+           />
         )
     }
 
@@ -97,13 +102,13 @@ export default class TextInput extends Component {
     if ((this.state.typeName === 'password' && this.state.isPristine) || (this.state.typeName === 'password' && !this.state.isPristine)) {
       this.setState({
         typeName: 'text',
-        toggleLableState: 'Hide ' + this.props.type,
+        toggleLabelState: 'Hide ' + this.props.type,
         isPristine: false
       });
     } else {
       this.setState({
         typeName: 'password',
-        toggleLableState: this.props.toggleLabel,
+        toggleLabelState: this.props.toggleLabel,
       });
     }
 
