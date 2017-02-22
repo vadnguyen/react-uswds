@@ -37,11 +37,10 @@ export default class TextInput extends Component {
 
 
   render() {
-
     let errorMessage,
         signInButton,
         toggleButton = (
-          <p className="usa-form-note">
+          <p className={'usa-form-note'}>
             <a title={this.state.toggleLableState} 
                 href={this.props.toggleURL}
                 className="usa-show_password"
@@ -95,19 +94,7 @@ export default class TextInput extends Component {
 
 // State toggle to show/hide the password input value
   _handleClick() {
-    if (this.state.typeName === 'password' && this.state.isPristine) {
-      this.setState({
-        typeName: 'text',
-        toggleLableState: 'Hide ' + this.props.type,
-        isPristine: false
-      });
-    } else if (this.state.typeName === 'text' && this.state.isPristine) {
-      this.setState({
-        typeName: 'password',
-        toggleLableState: this.props.toggleLabel,
-        isPristine: false
-      });
-    } else if (this.state.typeName === 'password' && !this.state.isPristine) {
+    if ((this.state.typeName === 'password' && this.state.isPristine) || (this.state.typeName === 'password' && !this.state.isPristine)) {
       this.setState({
         typeName: 'text',
         toggleLableState: 'Hide ' + this.props.type,
